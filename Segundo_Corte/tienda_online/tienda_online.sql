@@ -108,7 +108,7 @@ DELETE
 
 */
 
-## INSERT
+-- INSERT
 
 INSERT INTO clientes (nombreCliente, emailCliente, ciudad)
 VALUES
@@ -126,7 +126,7 @@ SELECT idProducto, nombreProducto FROM productos ORDER BY idProducto DESC LIMIT 
 INSERT INTO pedido (cantidadProducto, fechaPedido, idClienteFK, idProductoFK)
 VALUES (2, '2026-03-19', 3, 5);
   
-  ##UPDATE
+  --UPDATE
   
 UPDATE clientes 
 SET 
@@ -146,7 +146,7 @@ UPDATE productos
 SET    precioProducto = precioProducto * 0.90
 WHERE  idProducto = 6;
 
-## DELETE
+-- DELETE
 
 DELETE FROM pedido
 WHERE idPedido = 1;
@@ -166,39 +166,64 @@ alter table productos
 change column stockProducto stoProdT int;
 select nombreProducto, stoProdT from productos;
 
-# Muestra la tabla con nombres distintos pero no cambia en la BD
+-- Muestra la tabla con nombres distintos pero no cambia en la BD
 select nombreProducto as Nombre_Producto, stoProdT as stock from productos;
 
- # Muestra casilla especifica
+ -- Muestra casilla especifica
 select nombreProducto, stoProdT from productos where idProducto=2;
 
 select nombreProducto as Nombre_Producto, stoProdT as stock from productos where stoProdT>15 and nombreProducto ="Laptop Pro";
 
 select nombreProducto as Nombre_Producto, stoProdT as stock from productos where stoProdT>15 or nombreProducto ="Laptop Pro";
 
-# Orden numerico
+-- Orden numerico
 select nombreProducto as Nombre_Producto, stoProdT as stock 
 from productos order by stoProdT asc;
 
 select nombreProducto as Nombre_Producto, stoProdT as stock 
 from productos order by stoProdT desc;
 
-#Orden alfabetico
+--Orden alfabetico
 select nombreProducto as Nombre_Producto, stoProdT as stock 
 from productos order by nombreProducto asc;
 
 select nombreProducto as Nombre_Producto, stoProdT as stock 
 from productos order by nombreProducto desc;     
 
-# Between
+--  Between
 select nombreProducto as Nombre_Producto, precioProducto as precio
 from productos where precioProducto between 50000 and 100000 and stoProdT > 3 order by precioProducto asc; 
 
-# like ( Inician por ... )
+ -- like ( Inician por ... )
 select * from productos where nombreProducto like "mou%";
-# (Que contengan ... )
+--  (Que contengan ... )
 select * from productos where nombreProducto like "%ou%";
-# (Que terminen ...)
+--  (Que terminen ...)
 select * from productos where nombreProducto like "%os";
 
 select * from productos where nombreProducto like "%os" order by precioProducto asc limit 1;
+
+-- Consultas utilizando metodos
+
+SELECT nombreProducto, stoProdT
+FROM productos
+WHERE nombreProducto LIKE '%top%'
+AND stoProdT > 10;
+
+SELECT nombreProducto, precioProducto
+FROM productos
+WHERE precioProducto BETWEEN 50000 AND 1100000
+AND nombreProducto LIKE 'l%'
+ORDER BY precioProducto DESC;
+
+
+SELECT nombreProducto, precioProducto
+FROM productos
+WHERE nombreProducto LIKE '%a'
+ORDER BY precioProducto ASC;
+
+select * from productos;
+
+
+-- Importar datos de csv se hace mediante el Import Wizard de MySQL
+-- Los datos tambien se pueden importar de archivos JSON, XML, TXT.
