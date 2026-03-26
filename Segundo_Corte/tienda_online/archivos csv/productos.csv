@@ -1,0 +1,51 @@
+nombreProducto,precioProducto,stockProducto,categoriaProducto
+Laptop Pro,1445548,59,Accesorios
+Laptop Air,1435305,29,Electronica
+Mouse USB,80485,42,Oficina
+Teclado Mecanico,1051103,23,Accesorios
+Monitor 24,67418,94,Oficina
+Monitor 27,186105,91,Oficina
+Audifonos BT,272359,17,Oficina
+Tablet 10,650464,95,Hogar
+Smartphone X,855318,38,Oficina
+Smartphone Lite,514787,53,Electronica
+Camara Digital,137729,27,Oficina
+Impresora Ink,1166071,84,Electronica
+Router Wifi,770547,89,Hogar
+Disco SSD 1TB,1085886,44,Oficina
+Memoria USB 64GB,1044676,53,Hogar
+Cargador Rapido,981640,53,Hogar
+Bateria Portatil,144469,90,Hogar
+Parlante Bluetooth,592143,16,Hogar
+Webcam HD,163149,44,Oficina
+Microfono USB,752103,24,Accesorios
+Silla Oficina,375582,84,Accesorios
+Escritorio Compacto,247042,34,Electronica
+Lampara LED,1157494,21,Electronica
+Ventilador Torre,786794,65,Hogar
+Aspiradora Compacta,1019248,56,Electronica
+Cafetera Electrica,1054726,51,Accesorios
+Licuadora Pro,713419,31,Electronica
+Horno Electrico,385824,5,Hogar
+Sanduchera,279912,77,Accesorios
+Plancha Vapor,913611,95,Hogar
+Juego Herramientas,827103,64,Accesorios
+Taladro Electrico,987609,7,Oficina
+Cinta Medir,876860,54,Accesorios
+Nivel Laser,1414768,11,Hogar
+Destornillador Set,409854,83,Accesorios
+Cuaderno A4,354830,17,Oficina
+Boligrafo Pack,1055605,10,Electronica
+Carpeta Archivo,818057,5,Hogar
+Agenda Anual,905494,17,Oficina
+Calculadora Cientifica,23763,10,Electronica
+Mochila Urbana,476812,50,Accesorios
+Maletin Laptop,190936,40,Oficina
+Botella Termica,485972,57,Hogar
+Reloj Digital,174622,63,Accesorios
+Gafas Sol,285568,48,Electronica
+Zapatillas Running,80365,65,Hogar
+Camiseta Deportiva,113343,8,Accesorios
+Pantalon Jogger,1376576,50,Accesorios
+Chaqueta Ligera,830112,5,Hogar
+Gorra Clasica,816432,87,Electronica
