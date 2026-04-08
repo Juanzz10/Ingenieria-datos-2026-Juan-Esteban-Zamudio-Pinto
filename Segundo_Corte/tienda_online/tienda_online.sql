@@ -227,3 +227,133 @@ select * from productos;
 
 -- Importar datos de csv se hace mediante el Import Wizard de MySQL
 -- Los datos tambien se pueden importar de archivos JSON, XML, TXT.
+
+-- agrupar campos by select
+
+select * from productos group by categoriaProducto;
+ 
+select categoriaProducto,
+count(*) as cantidad,
+avg(precioProducto) as promedioMedio
+from productos 
+group by categoriaProducto
+having avg(precioProducto) > 5000
+order by promedioMedio desc;
+
+
+-- Funciones calculadas
+select
+count(*) as Total,
+avg(precioProducto) as PromedioPrecio,
+max(precioProducto) as PrecioMaximo,
+min(precioProducto) as PrecioMinimo,
+sum(stoProdT) as StockTotal
+from productos;
+
+select nombreCliente as nombre,
+upper(nombreCliente) as NombreMayusacula,
+concat('Nombre Ciente: ', nombreCliente, ' email cliente: ', emailCliente) as concatenar,
+length(nombreCliente) as tamanioNombre
+from clientes;
+
+## SUBCONSULTAS
+
+/*Consultas Anidadas SubQuery select 
+select col1,col2
+from tabla_Princial
+where columna operador
+	(select col1,col2
+	from tabla_Secundaria
+	where condicion); 
+Escalar devuelve  un único valor o fila o columna 
+de fila devuelve una sola fila con varias columnas ROw()
+de tabla devuelve varias filas y varias columnas
+correlacional
+
+ 1. reto 1 crear tabla empleados (id,nombre,deptoId, salario), producto (id,nombre,precio,categoria),
+ departamento(id,nombre)
+ 2. Vamos a registrar 5 empleados 3 departamentos y 5 productos*/
+
+
+create table empleados(
+idEmpleado int primary key,
+nombreEmpleado varchar (50) not null,
+salario double not null,
+idDepartamentoFK int not null
+);
+
+
+create table producto(
+idProducto int primary key auto_increment,
+nombreProducto varchar(120) not null,
+precioProducto decimal(10,2),
+categoriaProducto varchar(60)
+);
+
+create table departamento(
+idDepartamento int primary key,
+nombreDepartamento varchar (50) not null
+);
+
+alter table empleados
+add constraint FKDepartamentoEmpleados
+foreign key(idDepartamentoFK)
+references departamento(idDepartamento);
+
+INSERT INTO empleados (idEmpleado, nombreEmpleado, salario, idDepartamentoFK)
+VALUES
+	(1,'Ernesto',500000, 1),
+    (2,'Manuel',250000, 2),
+    (3,'Juan',  320000, 3),
+    (4,'Daniel',  100000, 4),
+    (5,'Santiago',   200000, 5);
+    
+INSERT INTO departamento (idDepartamento, nombreDepartamento)
+VALUES
+	(1, 'DeptoA'),
+    (2, 'DeptoB'),
+    (3, 'DeptoC'),
+    (4, 'DeptoD'),
+    (5, 'DeptoE');
+    
+INSERT INTO producto (idProducto, nombreProducto, precioProducto, categoriaProducto)
+VALUES
+  (100, 'celular', 180000, 'Electronica'),
+  (205, 'Silla', 850000, 'Oficina'),
+  (300, 'Escritorio', 180000, 'Oficina'),
+  (420, 'Tablet 10', 850000, 'Electrónica'),
+  (210, 'Monitor',  850000, 'Electrónica');
+
+
+/*Subconsultas*/
+###-----Where----
+select nombreEmpleado,salario 
+from empleados
+where salario>
+	(select AVG(salario)
+    from empleados);
+    
+ ###-----Where+in----
+select nombreEmpleado,salario 
+from empleados
+where idDepartamentoFK in 
+	(select idDepartamento
+    from departamento
+    where nombreDepartamento in ('DeptoA','DeptoB'));
+   
+   
+ ###-----tabla derivada----
+select idDepartamentoFK,prom_salario
+from 
+	(select idDepartamentoFK,AVG(salario)as prom_salario
+	from empleados
+    group by idDepartamentoFK) as promedios
+where prom_salario > 2800000.000000;
+
+
+select nombreProducto, precioProducto
+from productos
+where precioProducto>
+	(select AVG(precioProducto)
+    from producto)
+order by precioProducto desc;
