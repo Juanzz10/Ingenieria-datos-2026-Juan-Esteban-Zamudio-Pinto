@@ -351,9 +351,69 @@ from
 where prom_salario > 2800000.000000;
 
 
+## TAREA
+select nombreEmpleado, salario,
+(select AVG(salario) from empleados) AS prom_salario,
+salario - (select AVG(salario) from empleados) as diferencia from empleados; 
+
+
 select nombreProducto, precioProducto
-from productos
+from producto
 where precioProducto>
 	(select AVG(precioProducto)
     from producto)
 order by precioProducto desc;
+
+select * from productos;
+
+create table pedidos(
+idPedidos int primary key auto_increment,
+idCliente int not null,
+fechaPedidos date not null,
+estado enum('pendiente', 'enviado', 'entregado', 'cancelado'),
+total decimal (12,2) default 0,
+foreign key(idCliente) references clientes(idCliente)
+);
+
+create table detallePedido(
+idDetalle int primary key auto_increment,
+idPedidos int not null,
+idProducto int not null,
+cantidad int not null,
+precio_unit decimal(10,2) not null,
+foreign key (idPedidos) references pedidos(idPedidos),
+foreign key (idProducto) references producto (idProducto)
+);
+
+INSERT INTO pedidos (idCliente, fechaPedidos, estado, total)
+VALUES
+  (1, '2026-04-01', 'entregado',  1030000),
+  (1, '2026-04-03', 'enviado',    1700000),
+  (1, '2026-04-07', 'pendiente',   180000);
+
+INSERT INTO detallePedido (idPedidos, idProducto, cantidad, precio_unit)
+VALUES
+  (4, 100, 1, 180000),   
+  (5, 210, 1, 850000),   
+  (4, 205, 1, 850000),   
+  (6, 420, 1, 850000),   
+  (5, 100, 1, 180000);   
+
+SELECT 
+    c.nombreCliente,
+    c.emailCliente,
+    p.idPedidos,
+    p.fechaPedidos,
+    p.estado,
+    pr.nombreProducto,
+    dp.cantidad,
+    dp.precio_unit,
+    (dp.cantidad * dp.precio_unit) AS totalLinea
+FROM clientes c
+JOIN pedidos p       ON c.idCliente  = p.idCliente
+JOIN detallePedido dp ON p.idPedidos  = dp.idPedidos
+JOIN producto pr     ON dp.idProducto = pr.idProducto
+ORDER BY p.idPedidos ASC;
+
+
+
