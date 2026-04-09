@@ -415,5 +415,115 @@ JOIN detallePedido dp ON p.idPedidos  = dp.idPedidos
 JOIN producto pr     ON dp.idProducto = pr.idProducto
 ORDER BY p.idPedidos ASC;
 
+### Procedimientos 
+/* ===== Stored Procedures ===
+
+Son bloques de codigo de SQL que tienen un nombre que se almacena en el servidor y se ejecutan con invocacion
+(CALL) registro o de consulta de modificacion o de actualizacion de eliminacion. 
+
+con parametros de entrada in -- salida out -- ambos (inout)
+
+sintaxis
+
+DELIMITER//
+CREATE PROCEDURE
+nombreProcedimiento(
+IN parametro_entrada tiipo
+OUT parametro_salida tipo INOUT parametro */
 
 
+-- ejemplo 1 registro de pedido completo
+
+DELIMITER //
+CREATE PROCEDURE crearPedido(
+    IN  p_idCliente  INT,
+    IN  p_idProducto INT,
+    IN  p_cantidad   INT,
+    OUT p_idPedido   INT,
+    OUT p_mensaje    VARCHAR(200)
+)
+BEGIN
+    DECLARE v_stock  INT;
+    DECLARE v_precio DECIMAL(10,2);
+    DECLARE v_total  DOUBLE;
+
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        SET p_mensaje = 'Error: Transaccion revertida';
+        SET p_idPedido = -1;
+    END;
+
+    -- Validar disponibilidad de stock
+    SELECT stockProducto, precioProductos
+    INTO   v_stock, v_precio
+    FROM   productos
+    WHERE  idProductos = p_idProducto;
+
+    IF v_stock < p_cantidad THEN
+        SET p_mensaje  = CONCAT('Stock insuficiente. Disponible: ', v_stock);
+        SET p_idPedido = 0;
+
+    ELSE
+        START TRANSACTION;
+
+        SET v_total = v_precio * p_cantidad;
+
+        -- Crear el pedido
+        INSERT INTO pedidos (idCliente, fechaPedidos, estado, total)
+        VALUES (p_idCliente, CURDATE(), 'pendiente', v_total);
+
+        SET p_idPedido = LAST_INSERT_ID(); 
+
+        -- Insertar el detalle
+        INSERT INTO detallePedido (idPedidos, idProducto, cantidad, precio_unit)
+        VALUES (p_idPedido, p_idProducto, p_cantidad, v_precio);
+
+        -- Descontar del stock
+        UPDATE productos
+        SET    stockProducto = stockProducto - p_cantidad
+        WHERE  idProductos = p_idProducto;
+
+        COMMIT;
+        SET p_mensaje = CONCAT('Pedido #', p_idPedido, ' creado correctamente');
+
+    END IF; 
+
+END //
+DELIMITER ;
+
+-- Invocar el procedimiento
+CALL crearPedido(1, 100, 1, @idPedido, @mensaje);
+SELECT @idPedido, @mensaje;
+
+
+DELIMITER //
+CREATE PROCEDURE cancelarPedido(
+    IN  p_idPedido INT,
+    IN  p_idCliente INT,
+    OUT p_mensaje VARCHAR(200)
+)
+BEGIN
+    DECLARE v_estado VARCHAR(20);
+    DECLARE v_numProductos INT DEFAULT 0;
+
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        SET p_mensaje = 'Error: Transaccion revertida';
+    END;
+
+    -- Validar que el pedido exista y pertenezca al cliente
+    SELECT estado INTO v_estado
+    FROM  pedidos
+    WHERE idPedidos = p_idPedido
+      AND  idCliente = p_idCliente;
+
+    -- Si no encontró nada, el pedido no existe o no pertenece al cliente
+    IF v_estado IS NULL THEN
+        SET p_mensaje = CONCAT('Error: El pedido #', p_idPedido,' no existe o no pertenece al cliente');
+
+	-- Validar que no esté cancelado ni entregado
+    ELSE IF v_estado IN ('cancelado', 'entregado') THEN
+        SET p_mensaje = CONCAT('Error: El pedido #', p_idPedido,' no se puede cancelar. Estado actual: ', v_estado);
+	
