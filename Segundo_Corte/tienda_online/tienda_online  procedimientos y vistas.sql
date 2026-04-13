@@ -558,41 +558,41 @@ CALL sp_cancelar_pedido(3,1,@msg);
 select @msg;
 
 
-## TAREA VSITAS
--- Vista 1
+## TAREA VISTAS
+-- Vista 1:
 CREATE OR REPLACE VIEW v_resumen_pedidos AS
 SELECT
-    p.id_pedido,
-    p.fecha_pedido,
+    p.idPedidos,
+    p.fechaPedidos,
     p.estado,
     p.total,
-    c.id_cliente,
+    c.idCliente,
     c.nombreCliente,
     c.emailCliente,
-    COUNT(dp.id_detalle)        AS num_productos,
-    SUM(dp.cantidad)            AS unidades_totales
+    COUNT(dp.idDetalle) AS num_productos,
+    SUM(dp.cantidad) AS unidades_totales
 FROM pedidos p
-JOIN clientes      c  ON p.id_cliente  = c.idCliente
-JOIN detalle_pedido dp ON p.id_pedido  = dp.id_pedido
+JOIN clientes c  ON p.idCliente = c.idCliente
+JOIN detallePedido dp ON p.idPedidos = dp.idPedidos
 GROUP BY
-    p.id_pedido, p.fecha_pedido, p.estado, p.total,
-    c.id_cliente, c.nombreCliente, c.emailCliente;
+    p.idPedidos, p.fechaPedidos, p.estado, p.total,
+    c.idCliente, c.nombreCliente, c.emailCliente;
 
 
--- Vista 2: detalle completo de cada línea de pedido
+-- Vista 2:
 CREATE OR REPLACE VIEW v_detalle_pedidos AS
 SELECT
-    p.id_pedido,
-    p.fecha_pedido,
+    p.idPedidos,
+    p.fechaPedidos,
     p.estado,
     c.idCliente,
     c.nombreCliente,
-    pr.id_producto,
+    pr.idProducto,
     pr.nombreProducto,
     dp.cantidad,
     dp.precio_unit,
     (dp.cantidad * dp.precio_unit) AS subtotal
 FROM pedidos p
-JOIN clientes       c  ON p.id_cliente  = c.idCliente
-JOIN detalle_pedido dp ON p.id_pedido   = dp.id_pedido
-JOIN productos      pr ON dp.id_producto = pr.id_producto;
+JOIN clientes c  ON p.idCliente  = c.idCliente
+JOIN detallePedido dp ON p.idPedidos  = dp.idPedidos
+JOIN producto pr ON dp.idProducto = pr.idProducto;
