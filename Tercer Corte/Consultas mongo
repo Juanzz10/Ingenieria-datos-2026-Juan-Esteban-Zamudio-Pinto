@@ -1,0 +1,33 @@
+use salinas_del_cravo
+
+db.productos.find(
+  {},
+  {
+    nombre: 1,
+    categoria: 1,
+    cantidad: 1,
+    precio_unitario: 1,
+    total: 1
+  }
+).sort({ cantidad: 1 })
+
+db.productos.find(
+  { cantidad: { $lt: 15 } },
+  {
+    nombre: 1,
+    categoria: 1,
+    cantidad: 1,
+    precio_unitario: 1
+  }
+).sort({ cantidad: 1 })
+
+db.productos.find(
+  { total: { $gt: 1500000 } },
+  {
+    nombre: 1,
+    categoria: 1,
+    cantidad: 1,
+    precio_unitario: 1,
+    total: 1
+  }
+).sort({ total: -1 })
