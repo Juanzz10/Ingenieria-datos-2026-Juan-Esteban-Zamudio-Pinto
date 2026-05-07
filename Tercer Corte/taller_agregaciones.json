@@ -1,0 +1,388 @@
+use runningapp
+switched to db runningapp
+db.corredores.aggregate([
+  {
+    $unwind: "$carreras"
+  },
+  {
+    $group: {
+      _id:{ $concat: ["$nombre", " ", "$apellido"] },
+      total_km:{ $sum: "$carreras.distancia_km" },
+      total_min: { $sum: "$carreras.duracion_min" }
+    }
+  },
+  {
+    $sort: { total_km: -1 }
+  }
+])
+{
+  _id: 'Sebastián Peña',
+  total_km: 315.5,
+  total_min: 1795
+}
+{
+  _id: 'Miguel Vargas',
+  total_km: 275.5,
+  total_min: 1570
+}
+{
+  _id: 'Andrés Gómez',
+  total_km: 225.5,
+  total_min: 1285
+}
+{
+  _id: 'Felipe Mora',
+  total_km: 195.5,
+  total_min: 1115
+}
+{
+  _id: 'Natalia Díaz',
+  total_km: 172.5,
+  total_min: 1000
+}
+{
+  _id: 'Carlos Ramírez',
+  total_km: 166.7,
+  total_min: 955
+}
+{
+  _id: 'Daniela Castro',
+  total_km: 129.5,
+  total_min: 765
+}
+{
+  _id: 'Laura Torres',
+  total_km: 105.5,
+  total_min: 630
+}
+{
+  _id: 'Sofía Herrera',
+  total_km: 65.5,
+  total_min: 400
+}
+{
+  _id: 'Valentina Ríos',
+  total_km: 25,
+  total_min: 170
+}
+db.corredores.aggregate([
+  {
+    $unwind: "$carreras"
+  },
+  {
+    $group: {
+      _id:{
+        corredor:{$concat: ["$nombre", " ", "$apellido"]},
+        mes:"$carreras.mes"
+      },
+      promedio_minutos: {$avg:"$carreras.duracion_min" }
+    }
+  },
+  {
+    $sort: {"_id.mes": 1, "_id.corredor": 1 }
+  }
+])
+{
+  _id: {
+    corredor: 'Andrés Gómez',
+    mes: '2026-01'
+  },
+  promedio_minutos: 340
+}
+{
+  _id: {
+    corredor: 'Carlos Ramírez',
+    mes: '2026-01'
+  },
+  promedio_minutos: 245
+}
+{
+  _id: {
+    corredor: 'Daniela Castro',
+    mes: '2026-01'
+  },
+  promedio_minutos: 195
+}
+{
+  _id: {
+    corredor: 'Felipe Mora',
+    mes: '2026-01'
+  },
+  promedio_minutos: 285
+}
+{
+  _id: {
+    corredor: 'Laura Torres',
+    mes: '2026-01'
+  },
+  promedio_minutos: 150
+}
+{
+  _id: {
+    corredor: 'Miguel Vargas',
+    mes: '2026-01'
+  },
+  promedio_minutos: 400
+}
+{
+  _id: {
+    corredor: 'Natalia Díaz',
+    mes: '2026-01'
+  },
+  promedio_minutos: 255
+}
+{
+  _id: {
+    corredor: 'Sebastián Peña',
+    mes: '2026-01'
+  },
+  promedio_minutos: 455
+}
+{
+  _id: {
+    corredor: 'Sofía Herrera',
+    mes: '2026-01'
+  },
+  promedio_minutos: 95
+}
+{
+  _id: {
+    corredor: 'Valentina Ríos',
+    mes: '2026-01'
+  },
+  promedio_minutos: 55
+}
+{
+  _id: {
+    corredor: 'Andrés Gómez',
+    mes: '2026-02'
+  },
+  promedio_minutos: 315
+}
+{
+  _id: {
+    corredor: 'Carlos Ramírez',
+    mes: '2026-02'
+  },
+  promedio_minutos: 220
+}
+{
+  _id: {
+    corredor: 'Daniela Castro',
+    mes: '2026-02'
+  },
+  promedio_minutos: 175
+}
+{
+  _id: {
+    corredor: 'Felipe Mora',
+    mes: '2026-02'
+  },
+  promedio_minutos: 260
+}
+{
+  _id: {
+    corredor: 'Laura Torres',
+    mes: '2026-02'
+  },
+  promedio_minutos: 180
+}
+{
+  _id: {
+    corredor: 'Miguel Vargas',
+    mes: '2026-02'
+  },
+  promedio_minutos: 370
+}
+{
+  _id: {
+    corredor: 'Natalia Díaz',
+    mes: '2026-02'
+  },
+  promedio_minutos: 235
+}
+{
+  _id: {
+    corredor: 'Sebastián Peña',
+    mes: '2026-02'
+  },
+  promedio_minutos: 425
+}
+{
+  _id: {
+    corredor: 'Sofía Herrera',
+    mes: '2026-02'
+  },
+  promedio_minutos: 110
+}
+{
+  _id: {
+    corredor: 'Valentina Ríos',
+    mes: '2026-02'
+  },
+  promedio_minutos: 30
+}
+Type "it" for more
+db.corredores.aggregate([
+  {
+    $unwind: "$carreras"
+  },
+  {
+    $group: {
+      _id:{
+        corredor: {$concat:["$nombre", " ", "$apellido"]},
+        mes:"$carreras.mes"
+      },
+      promedio_km:{$avg:"$carreras.distancia_km" }
+    }
+  },
+  {
+    $match:{
+      promedio_km:{ $gt: 5 }
+    }
+  },
+  {
+    $sort:{ "_id.mes": 1, "_id.corredor": 1 }
+  }
+])
+{
+  _id: {
+    corredor: 'Andrés Gómez',
+    mes: '2026-01'
+  },
+  promedio_km: 60
+}
+{
+  _id: {
+    corredor: 'Carlos Ramírez',
+    mes: '2026-01'
+  },
+  promedio_km: 42.5
+}
+{
+  _id: {
+    corredor: 'Daniela Castro',
+    mes: '2026-01'
+  },
+  promedio_km: 33
+}
+{
+  _id: {
+    corredor: 'Felipe Mora',
+    mes: '2026-01'
+  },
+  promedio_km: 50
+}
+{
+  _id: {
+    corredor: 'Laura Torres',
+    mes: '2026-01'
+  },
+  promedio_km: 25
+}
+{
+  _id: {
+    corredor: 'Miguel Vargas',
+    mes: '2026-01'
+  },
+  promedio_km: 70
+}
+{
+  _id: {
+    corredor: 'Natalia Díaz',
+    mes: '2026-01'
+  },
+  promedio_km: 44
+}
+{
+  _id: {
+    corredor: 'Sebastián Peña',
+    mes: '2026-01'
+  },
+  promedio_km: 80
+}
+{
+  _id: {
+    corredor: 'Sofía Herrera',
+    mes: '2026-01'
+  },
+  promedio_km: 15
+}
+{
+  _id: {
+    corredor: 'Valentina Ríos',
+    mes: '2026-01'
+  },
+  promedio_km: 8
+}
+{
+  _id: {
+    corredor: 'Andrés Gómez',
+    mes: '2026-02'
+  },
+  promedio_km: 55.5
+}
+{
+  _id: {
+    corredor: 'Carlos Ramírez',
+    mes: '2026-02'
+  },
+  promedio_km: 38
+}
+{
+  _id: {
+    corredor: 'Daniela Castro',
+    mes: '2026-02'
+  },
+  promedio_km: 29.5
+}
+{
+  _id: {
+    corredor: 'Felipe Mora',
+    mes: '2026-02'
+  },
+  promedio_km: 45.5
+}
+{
+  _id: {
+    corredor: 'Laura Torres',
+    mes: '2026-02'
+  },
+  promedio_km: 30.5
+}
+{
+  _id: {
+    corredor: 'Miguel Vargas',
+    mes: '2026-02'
+  },
+  promedio_km: 65
+}
+{
+  _id: {
+    corredor: 'Natalia Díaz',
+    mes: '2026-02'
+  },
+  promedio_km: 40.5
+}
+{
+  _id: {
+    corredor: 'Sebastián Peña',
+    mes: '2026-02'
+  },
+  promedio_km: 75
+}
+{
+  _id: {
+    corredor: 'Sofía Herrera',
+    mes: '2026-02'
+  },
+  promedio_km: 18.5
+}
+{
+  _id: {
+    corredor: 'Andrés Gómez',
+    mes: '2026-03'
+  },
+  promedio_km: 48
+}
+Type "it" for more
