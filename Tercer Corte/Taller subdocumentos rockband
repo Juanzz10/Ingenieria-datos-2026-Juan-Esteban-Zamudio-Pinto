@@ -1,0 +1,388 @@
+use rockband
+switched to db rockband
+db.createCollection("bands")
+{ ok: 1 }
+db.bands.insertOne({name: "Bon Jovi",country: "Estados Unidos de América",url: "https://www.bonjovi.com",
+    albums: [{title: "Slippery When Wet",
+        dateCreated: new Date(1986, 7, 18),
+        songs: [
+          { title: "You Give Love a Bad Name", autor: ["Jon Bon Jovi", "Richie Sambora"], duration: 234 },
+          { title: "Livin' on a Prayer",autor: ["Jon Bon Jovi", "Richie Sambora"], duration: 251 },
+          { title: "Wanted Dead or Alive",autor: ["Jon Bon Jovi", "Richie Sambora"], duration: 324 },
+          { title: "Never Say Goodbye",autor: ["Jon Bon Jovi", "Richie Sambora"], duration: 252 },
+          { title: "Wild in the Streets",autor: ["Jon Bon Jovi", "Richie Sambora"], duration: 243 }
+        ]
+      },
+      {
+        title: "New Jersey",
+        dateCreated: new Date(1988, 8, 19),
+        songs: [
+          { title: "Bad Medicine",autor: ["Jon Bon Jovi", "Richie Sambora"], duration: 250 },
+          { title: "I'll Be There for You",autor: ["Jon Bon Jovi", "Richie Sambora"], duration: 305 },
+          { title: "Lay Your Hands on Me", autor: ["Jon Bon Jovi", "Richie Sambora"], duration: 363 },
+          { title: "Living in Sin", autor: ["Jon Bon Jovi", "Richie Sambora"], duration: 255 },
+          { title: "Born to Be My Baby",autor: ["Jon Bon Jovi", "Richie Sambora"], duration: 241 }]
+      }
+    ]
+})
+{
+  acknowledged: true,
+  insertedId: ObjectId('69fc017f34e52d8a5c086fe6')
+}
+db.bands.insertOne({name: "AC/DC",country: "Australia",url: "https://www.acdc.com",
+    albums: [{itle: "Back in Black",
+        dateCreated: new Date(1980, 6, 25),
+        songs: [
+          { title: "Hells Bells",autor: ["Angus Young", "Malcolm Young"], duration: 312 },
+          { title: "Shoot to Thrill",autor: ["Angus Young", "Malcolm Young"], duration: 317 },
+          { title: "Back in Black",autor: ["Angus Young", "Malcolm Young"], duration: 255 },
+          { title: "You Shook Me All Night Long",autor: ["Angus Young", "Malcolm Young"], duration: 210 },
+          { title: "Rock and Roll Ain't Noise Pollution",autor: ["Angus Young", "Malcolm Young"], duration: 244 }
+        ]
+      },
+      {
+        title: "Highway to Hell",
+        dateCreated: new Date(1979, 6, 27),
+        songs: [
+          { title: "Highway to Hell", autor: ["Angus Young", "Malcolm Young"], duration: 209 },
+          { title: "Girl's Got Rhythm",autor: ["Angus Young", "Malcolm Young"], duration: 231 },
+          { title: "Walk All Over You", autor: ["Angus Young", "Malcolm Young"], duration: 295 },
+          { title: "Touch Too Much", autor: ["Angus Young", "Malcolm Young"], duration: 253 },
+          { title: "If You Want Blood", autor: ["Angus Young", "Malcolm Young"], duration: 264 }]
+      }
+    ]
+})
+{
+  acknowledged: true,
+  insertedId: ObjectId('69fc01e134e52d8a5c086fe7')
+}
+db.bands.insertOne({name: "Guns N Roses",country: "Estados Unidos de América", url: "https://www.gunsnroses.com",
+    albums: [
+      {
+        title: "Appetite for Destruction",
+        dateCreated: new Date(1987, 6, 21),
+        songs: [
+          { title: "Welcome to the Jungle", autor: ["Axl Rose", "Slash"], duration: 272 },
+          { title: "Sweet Child O Mine",autor: ["Axl Rose", "Slash"], duration: 356 },
+          { title: "Paradise City",autor: ["Axl Rose", "Slash"], duration: 407 },
+          { title: "Night Train",autor: ["Axl Rose", "Slash"],duration: 269 },
+          { title: "Mr. Brownstone",autor: ["Axl Rose", "Slash"],duration: 232 }
+        ]
+      },
+      {
+        title: "Use Your Illusion I",
+        dateCreated: new Date(1991, 8, 17),
+        songs: [
+          { title: "November Rain", autor: ["Axl Rose"], duration: 537 },
+          { title: "Live and Let Die", autor: ["Axl Rose", "Slash"], duration: 298 },
+          { title: "Estranged", autor: ["Axl Rose"], duration: 564 },
+          { title: "You Could Be Mine", autor: ["Axl Rose", "Slash"], duration: 343 },
+          { title: "Civil War", autor: ["Axl Rose", "Slash", "Duff"],duration: 456 }]
+      }
+    ]
+})
+{
+  acknowledged: true,
+  insertedId: ObjectId('69fc08d434e52d8a5c086fe8')
+}
+db.bands.insertOne({ name: "Queen",country: "Reino Unido",url: "https://www.queenonline.com",
+    albums: [{title: "A Night at the Opera",
+        dateCreated: new Date(1975, 10, 21),
+        songs: [
+          { title: "Bohemian Rhapsody",autor: ["Freddie Mercury"],duration: 354 },
+          { title: "Love of My Life", autor: ["Freddie Mercury"], duration: 211 },
+          { title: "You're My Best Friend", autor: ["John Deacon"], duration: 170 },
+          { title: "The Prophet's Song", autor: ["Brian May"], duration: 513 },
+          { title: "Death on Two Legs",autor: ["Freddie Mercury"], duration: 227 }
+        ]
+      },
+      {
+        title: "News of the World",
+        dateCreated: new Date(1977, 9, 28),
+        songs: [
+          { title: "We Will Rock You", autor: ["Brian May"],duration: 122 },
+          { title: "We Are the Champions",autor: ["Freddie Mercury"], uration: 179 },
+          { title: "Sheer Heart Attack", autor: ["Roger Taylor"], duration: 222 },
+          { title: "All Dead All Dead",autor: ["Brian May"], duration: 190 },
+          { title: "Fight from the Inside",autor: ["Roger Taylor"],duration: 184 }]
+      }
+    ]
+})
+{
+  acknowledged: true,
+  insertedId: ObjectId('69fc093734e52d8a5c086fe9')
+}
+db.bands.insertOne({name: "Pink Floyd",country: "Reino Unido",url: "https://www.pinkfloyd.com",
+    albums: [{title: "The Dark Side of the Moon",
+        dateCreated: new Date(1973, 2, 1),
+        songs: [
+          { title: "Speak to Me",utor: ["Nick Mason"], duration: 68  },
+          { title: "Money",autor: ["Roger Waters"], duration: 382 },
+          { title: "Time", autor: ["Roger Waters", "Nick Mason"], duration: 421 },
+          { title: "The Great Gig in the Sky", autor: ["Richard Wright"], duration: 284 },
+          { title: "Brain Damage", autor: ["Roger Waters"], duration: 228 }
+        ]
+      },
+      {
+        title: "The Wall",
+        dateCreated: new Date(1979, 10, 30),
+        songs: [
+          { title: "Another Brick in the Wall", autor: ["Roger Waters"], duration: 218 },
+          { title: "Hey You", autor: ["Roger Waters"], duration: 280 },
+          { title: "Comfortably Numb", autor: ["Roger Waters", "David Gilmour"], duration: 382 },
+          { title: "Run Like Hell", autor: ["David Gilmour"], duration: 270 },
+          { title: "Wish You Were Here", autor: ["Roger Waters", "David Gilmour"], duration: 314 } ]
+      }
+    ]
+})
+{
+  acknowledged: true,
+  insertedId: ObjectId('69fc098d34e52d8a5c086fea')
+}
+db.bands.find({},{ _id: 0, name: 1, country: 1, "albums.title": 1, "albums.songs.title": 1 })
+{
+  name: 'Bon Jovi',
+  country: 'Estados Unidos de América',
+  albums: [
+    {
+      title: 'Slippery When Wet',
+      songs: [
+        {
+          title: 'You Give Love a Bad Name'
+        },
+        {
+          title: "Livin' on a Prayer"
+        },
+        {
+          title: 'Wanted Dead or Alive'
+        },
+        {
+          title: 'Never Say Goodbye'
+        },
+        {
+          title: 'Wild in the Streets'
+        }
+      ]
+    },
+    {
+      title: 'New Jersey',
+      songs: [
+        {
+          title: 'Bad Medicine'
+        },
+        {
+          title: "I'll Be There for You"
+        },
+        {
+          title: 'Lay Your Hands on Me'
+        },
+        {
+          title: 'Living in Sin'
+        },
+        {
+          title: 'Born to Be My Baby'
+        }
+      ]
+    }
+  ]
+}
+{
+  name: 'AC/DC',
+  country: 'Australia',
+  albums: [
+    {
+      songs: [
+        {
+          title: 'Hells Bells'
+        },
+        {
+          title: 'Shoot to Thrill'
+        },
+        {
+          title: 'Back in Black'
+        },
+        {
+          title: 'You Shook Me All Night Long'
+        },
+        {
+          title: "Rock and Roll Ain't Noise Pollution"
+        }
+      ]
+    },
+    {
+      title: 'Highway to Hell',
+      songs: [
+        {
+          title: 'Highway to Hell'
+        },
+        {
+          title: "Girl's Got Rhythm"
+        },
+        {
+          title: 'Walk All Over You'
+        },
+        {
+          title: 'Touch Too Much'
+        },
+        {
+          title: 'If You Want Blood'
+        }
+      ]
+    }
+  ]
+}
+{
+  name: 'Guns N Roses',
+  country: 'Estados Unidos de América',
+  albums: [
+    {
+      title: 'Appetite for Destruction',
+      songs: [
+        {
+          title: 'Welcome to the Jungle'
+        },
+        {
+          title: 'Sweet Child O Mine'
+        },
+        {
+          title: 'Paradise City'
+        },
+        {
+          title: 'Night Train'
+        },
+        {
+          title: 'Mr. Brownstone'
+        }
+      ]
+    },
+    {
+      title: 'Use Your Illusion I',
+      songs: [
+        {
+          title: 'November Rain'
+        },
+        {
+          title: 'Live and Let Die'
+        },
+        {
+          title: 'Estranged'
+        },
+        {
+          title: 'You Could Be Mine'
+        },
+        {
+          title: 'Civil War'
+        }
+      ]
+    }
+  ]
+}
+{
+  name: 'Queen',
+  country: 'Reino Unido',
+  albums: [
+    {
+      title: 'A Night at the Opera',
+      songs: [
+        {
+          title: 'Bohemian Rhapsody'
+        },
+        {
+          title: 'Love of My Life'
+        },
+        {
+          title: "You're My Best Friend"
+        },
+        {
+          title: "The Prophet's Song"
+        },
+        {
+          title: 'Death on Two Legs'
+        }
+      ]
+    },
+    {
+      title: 'News of the World',
+      songs: [
+        {
+          title: 'We Will Rock You'
+        },
+        {
+          title: 'We Are the Champions'
+        },
+        {
+          title: 'Sheer Heart Attack'
+        },
+        {
+          title: 'All Dead All Dead'
+        },
+        {
+          title: 'Fight from the Inside'
+        }
+      ]
+    }
+  ]
+}
+{
+  name: 'Pink Floyd',
+  country: 'Reino Unido',
+  albums: [
+    {
+      title: 'The Dark Side of the Moon',
+      songs: [
+        {
+          title: 'Speak to Me'
+        },
+        {
+          title: 'Money'
+        },
+        {
+          title: 'Time'
+        },
+        {
+          title: 'The Great Gig in the Sky'
+        },
+        {
+          title: 'Brain Damage'
+        }
+      ]
+    },
+    {
+      title: 'The Wall',
+      songs: [
+        {
+          title: 'Another Brick in the Wall'
+        },
+        {
+          title: 'Hey You'
+        },
+        {
+          title: 'Comfortably Numb'
+        },
+        {
+          title: 'Run Like Hell'
+        },
+        {
+          title: 'Wish You Were Here'
+        }
+      ]
+    }
+  ]
+}
+db.bands.updateOne({ name: "Bon Jovi" },{ $unset: { "albums.0.dateCreated": "" } })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.bands.updateOne({ name: "Queen" },{ $unset: { "albums.0.songs": "" } })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.bands.find({ name: "Queen" },{ _id: 0, name: 1, "albums.title": 1, "albums.songs": 1 })
